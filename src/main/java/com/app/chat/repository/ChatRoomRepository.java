@@ -12,5 +12,7 @@ public interface ChatRoomRepository {
 
 	public int save(ChatRoomVO chatRoomVO);
 	
-	public ChatRoomVO findRoomById(Long chatRoomId);
+	public ChatRoomVO findRoomByRoomId(Long chatRoomId);
+	
+	public ChatRoomVO findRoomByUserId(String userId);
 }

@@ -9,7 +9,7 @@
 		VALUES(SEQ_CHAT_ROOM.NEXTVAL, #{chatRoomName}, SYSDATE)
 	</insert>
 	
-	<select id="selectChatRoomById" parameterType="Long" resultType="ChatRoomVO">
+	<select id="selectChatRoomByRoomId" parameterType="Long" resultType="ChatRoomVO">
 		SELECT 
 			CHAT_ROOM_ID AS chatRoomId,
 			CHAT_ROOM_NAME AS chatRoomName,

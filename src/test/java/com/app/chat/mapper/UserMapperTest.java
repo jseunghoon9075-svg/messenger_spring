@@ -31,7 +31,7 @@ class UserMapperTest {
 		
 		userMapper.insertUser(userVO);
 		
-		UserVO saved = userMapper.selectUser("alslrnf");
+		UserVO saved = userMapper.selectUserById("alslrnf");
 		
 		assertNotNull(saved);
 		assertEquals("홍길동", saved.getUserName());

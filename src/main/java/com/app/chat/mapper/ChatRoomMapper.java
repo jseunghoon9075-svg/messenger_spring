@@ -9,7 +9,7 @@ public interface ChatRoomMapper {
 	
 	public int insertChatRoom(ChatRoomVO chatRoomVO);
 	
-	public ChatRoomVO selectChatRoomById(Long chatRoomId);
+	public ChatRoomVO selectChatRoomByRoomId(Long chatRoomId);
 	
 	public ChatRoomVO selectChatRoomsByUserId(String userId);
 }

@@ -9,4 +9,6 @@ public interface UserRepository {
 	public void save(UserVO userVO);
 	
 	public UserVO findUserById(String userId);
+	
+	public boolean existsByUserId(String userId);
 }
