@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+
+		<setting name="callSettersOnNulls" value="true"/>
+
+		<setting name="logImpl" value="SLF4J"/>
+	</settings>
+
+	<!-- 🔹 타입 별칭 (VO 짧게 쓰기 가능) -->
+	<typeAliases>
+		<typeAlias type="com.app.chat.domain.vo.UserVO" alias="UserVO" />
+		<typeAlias type="com.app.chat.domain.vo.ChatRoomVO" alias="ChatRoomVO" />
+		<typeAlias type="com.app.chat.domain.vo.ChatRoomUserVO" alias="ChatRoomUserVO" />
+		<typeAlias type="com.app.chat.domain.vo.ChatMessageVO" alias="ChatMessageVO" />
+		<typeAlias type="com.app.chat.domain.vo.ChatMessageReadVO" alias="ChatMessageReadVO" />
+	</typeAliases>
+
+</configuration>

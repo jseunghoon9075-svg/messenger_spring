@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.chat.mapper.ChatMessageMapper">
+	<insert id="insertChatMessage" parameterType="ChatMessageVO">
+		INSERT INTO TBL_CHAT_MESSAGE(MESSAGE_ID, MESSAGE_TYPE, CONTENT, SENT_AT, CHAT_ROOM_ID, USER_ID)
+		VALUES(SEQ_CHAT_MESSAGE.NEXTVAL, #{messageType}, #{content}, SYSDATE, #{chatRoomId}, #{userId})
+	</insert>
+	
+	<select id="selectMessagesByChatRoomId" parameterType="Long" resultType="ChatMessageVO">
+		SELECT MESSAGE_ID, MESSAGE_TYPE, CONTENT, SENT_AT, CHAT_ROOM_ID, USER_ID
+		FROM TBL_CHAT_MESSAGE
+		WHERE CHAT_ROOM_ID = #{chatRoomId}
+		ORDER BY SENT_AT ASC
+	</select>
+	
+	<select id="selectLastMessageByChatRoomId" parameterType="Long" resultType="ChatMessageVO">
+		SELECT MESSAGE_ID, MESSAGE_TYPE, CONTENT, SENT_AT, CHAT_ROOM_ID, USER_ID
+		FROM (
+			SELECT *
+			FROM TBL_CHAT_MESSAGE
+			WHERE CHAT_ROOM_ID = #{chatRoomId}
+			ORDER BY MESSAGE_ID DESC
+		)
+		WHERE ROWNUM = 1
+	</select>
+</mapper>

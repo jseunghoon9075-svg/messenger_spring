@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.chat.mapper.ChatRoomMapper">
+
+							<!-- 채팅방 생성, 채팅방 조회 (ID 기준) -->
+							
+	<insert id="insertChatRoom" parameterType="ChatRoomVO">
+		INSERT INTO TBL_CHAT_ROOM(CHAT_ROOM_ID, CHAT_ROOM_NAME, CREATED_AT)
+		VALUES(SEQ_CHAT_ROOM.NEXTVAL, #{chatRoomName}, SYSDATE)
+	</insert>
+	
+	<select id="selectChatRoomById" parameterType="Long" resultType="ChatRoomVO">
+		SELECT 
+			CHAT_ROOM_ID AS chatRoomId,
+			CHAT_ROOM_NAME AS chatRoomName,
+			CREATED_AT AS createdAt
+		FROM TBL_CHAT_ROOM
+		WHERE CHAT_ROOM_ID = #{chatRoomId}
+	</select>
+	
+	<select id="selectChatRoomsByUserId" parameterType="String" resultType="ChatRoomVO">
+		SELECT TCR.CHAT_ROOM_ID, TCR.CHAT_ROOM_ID, TCR.CREATED_AT
+		FROM TBL_CHAT_ROOM TCR
+		JOIN TBL_CHAT_ROOM_USER TCRU
+			ON TCR.CHAT_ROOM_ID = TCRU.CHAT_ROOM_ID
+		WHERE TCRU.USER_ID = #{userId}
+			AND TCRU.LEFT_AT IS NULL
+	</select>
+</mapper>

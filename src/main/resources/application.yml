@@ -1,0 +1,30 @@
+server:
+  port: 10000
+
+spring:
+  devtools:
+    restart:
+      exclude: "**/dto/**"
+
+  datasource:
+      driver-class-name: oracle.jdbc.OracleDriver
+      url: jdbc:oracle:thin:@//localhost:1521/XE
+      username: hr
+      password: 1234
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    cors:
+      mappings:
+        "/**":
+          allowed-origins: "http://localhost:3000"
+          allowed-methods: "*"
+          allowed-headers: "*"
+          allow-credentials: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.app.chat.domain.vo

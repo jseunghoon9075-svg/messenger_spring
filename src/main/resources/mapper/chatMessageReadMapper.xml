@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.chat.mapper.ChatMessageReadMapper">
+	<insert id="insertChatRead" parameterType="ChatMessageReadVO">
+		INSERT INTO TBL_CHAT_MESSAGE_READ(CHAT_MESSAGE_ID, USER_ID, READ_AT)
+		VALUES(#{chatMessageId}, #{userId}, SYSDATE)
+	</insert>
+	
+	<select id="existRead" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_CHAT_MESSAGE_READ
+		WHERE CHAT_MESSAGE_ID = #{chatMessageId}
+		AND USER_ID = #{userId}
+	</select>
+	
+	<select id="countUnreadMessages" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_CHAT_MESSAGE tcm
+		WHERE tcm.CHAT_ROOM_ID = #{chatRoomId}
+		AND NOT EXISTS (
+			SELECT 1
+			FROM TBL_CHAT_MESSAGE_READ tcmr 
+			WHERE tcmr.CHAT_MESSAGE_ID = tcm.CHAT_ROOM_ID
+			AND tcmr.USER_ID = #{userId}
+		)
+	</select>
+	
+	<select id="countReadUsers" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_CHAT_MESSAGE_READ
+		WHERE CHAT_MESSAGE_ID = #{chatMessageId}
+	</select>
+</mapper>

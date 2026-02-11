@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.chat.mapper.UserMapper">
+
+									<!-- 유저 생성, 유저 조회 -->
+
+	<insert id="insertUser" parameterType="com.app.chat.domain.vo.UserVO">
+		INSERT INTO TBL_USER(USER_ID, USER_NAME, USER_PASSWORD)
+		VALUES (#{userId}, #{userName}, #{userPassword})
+	</insert>
+	
+	<select id="selectUserById" parameterType="String" resultType="com.app.chat.domain.vo.UserVO">
+		SELECT USER_ID, USER_NAME, USER_PASSWORD, CREATED_AT
+		FROM TBL_USER
+		WHERE USER_ID = #{userId}
+	</select>
+
+</mapper>
