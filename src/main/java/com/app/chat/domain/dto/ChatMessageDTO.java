@@ -15,11 +15,11 @@ import lombok.Setter;
 @Builder
 public class ChatMessageDTO {
 	
-	private Long messageId;
-	private String messageType;
-	private String content;
-	
+	private Long chatRoomId;
 	private String userId;
+	private String content;
+	private String messageType;
+	
 	private String userName;
 	
 	private LocalDateTime sentAt;
