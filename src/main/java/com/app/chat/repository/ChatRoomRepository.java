@@ -14,5 +14,5 @@ public interface ChatRoomRepository {
 	
 	public ChatRoomVO findRoomByRoomId(Long chatRoomId);
 	
-	public ChatRoomVO findRoomByUserId(String userId);
+	public List<ChatRoomVO> findRoomByUserId(String userId);
 }

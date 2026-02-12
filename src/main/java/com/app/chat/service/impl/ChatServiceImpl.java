@@ -11,6 +11,7 @@ import com.app.chat.repository.ChatMessageRepository;
 import com.app.chat.repository.UserRepository;
 import com.app.chat.service.ChatRoomService;
 import com.app.chat.service.ChatService;
+import com.app.chat.type.MessageType;
 
 import lombok.RequiredArgsConstructor;
 
@@ -50,6 +51,10 @@ public class ChatServiceImpl implements ChatService {
 		
 		if(!isUserInRoom) {
 			throw new GlobalException("해당 채팅방에 속해 있지 않은 사용자입니다.");
+		}
+		
+		if(chatMessageVO.getMessageType() == null) {
+			chatMessageVO.setMessageType(MessageType.MESSAGE);
 		}
 		
 		chatMessageRepository.save(chatMessageVO);

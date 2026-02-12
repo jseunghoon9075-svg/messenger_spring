@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.test.annotation.Rollback;
 
 import com.app.chat.domain.vo.ChatMessageVO;
+import com.app.chat.type.MessageType;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -26,7 +27,7 @@ public class ChatMessageMapperTest {
 		ChatMessageVO msg = ChatMessageVO.builder()
 				.chatRoomId(1L)
 				.userId("alslrnf")
-				.messageType("CHAT")
+				.messageType(MessageType.MESSAGE)
 				.content("안녕!")
 				.build();
 		

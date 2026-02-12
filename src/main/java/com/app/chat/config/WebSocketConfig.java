@@ -14,15 +14,23 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSocketMessageBroker
-@RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketConfigurer{
-	
-	private final ChatHandler chatHandler;
-	
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
+
 	@Override
-	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(chatHandler, "/ws/chat")
-				.setAllowedOrigins("*");
+	public void registerStompEndpoints(StompEndpointRegistry registry) {
+		
+		registry.addEndpoint("/ws")
+			.setAllowedOriginPatterns("*") // 프론트 연동대비
+			.withSockJS(); // SockJS 쓸거면 반드시 필요
 	}
+
+	@Override
+	public void configureMessageBroker(MessageBrokerRegistry registry) {
+		
+		registry.enableSimpleBroker("/topic"); // 구독 prefix
+		registry.setApplicationDestinationPrefixes("/app"); // 발행 prefix
+	}
+	
+	
 	
 }

@@ -1,6 +1,7 @@
 package com.app.chat.repository.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.app.chat.domain.vo.ChatRoomVO;
@@ -26,7 +27,7 @@ public class ChatRoomRepositoryImpl implements ChatRoomRepository {
 	}
 
 	@Override
-	public ChatRoomVO findRoomByUserId(String userId) {
+	public List<ChatRoomVO> findRoomByUserId(String userId) {
 		return chatRoomMapper.selectChatRoomsByUserId(userId);
 	}
 

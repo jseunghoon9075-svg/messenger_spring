@@ -14,4 +14,6 @@ public interface ChatRoomService {
 	public boolean isUserInRoom(Long chatRoomId, String userId);
 	
 	public List<ChatRoomUserVO> findRoomUsers(Long chatRoomId);
+	
+	public List<ChatRoomVO> findRoomsByUserId(String userId);
 }

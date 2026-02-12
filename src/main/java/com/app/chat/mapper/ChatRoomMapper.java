@@ -1,5 +1,7 @@
 package com.app.chat.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.app.chat.domain.vo.ChatRoomVO;
@@ -11,5 +13,5 @@ public interface ChatRoomMapper {
 	
 	public ChatRoomVO selectChatRoomByRoomId(Long chatRoomId);
 	
-	public ChatRoomVO selectChatRoomsByUserId(String userId);
+	public List<ChatRoomVO> selectChatRoomsByUserId(String userId);
 }

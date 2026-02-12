@@ -82,4 +82,14 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		return chatRoomUserRepository.findRoomUserByRoomId(chatRoomId);
 	}
 
+	@Override
+	public List<ChatRoomVO> findRoomsByUserId(String userId) {
+		if(userId == null || userId.isBlank()) {
+			throw new GlobalException("사용자 정보가 없습니다.");
+		}
+		return chatRoomRepository.findRoomByUserId(userId);
+	}
+	
+	
+
 }
