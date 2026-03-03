@@ -23,6 +23,7 @@ public class ChatServiceImpl implements ChatService {
 	private final ChatMessageRepository chatMessageRepository;
 	private final UserRepository userRepository;
 	private final ChatRoomService chatRoomService;
+	private static final String AI_USER_ID = "AI";
 
 	@Override
 	@Transactional
@@ -46,12 +47,17 @@ public class ChatServiceImpl implements ChatService {
 		
 		chatRoomService.findRoomById(chatMessageVO.getChatRoomId());
 		
-		boolean isUserInRoom = 
-				chatRoomService.isUserInRoom(chatMessageVO.getChatRoomId(), chatMessageVO.getUserId());
+		if(!AI_USER_ID.equals(chatMessageVO.getUserId())) {
+			boolean isUserInRoom = 
+					chatRoomService.isUserInRoom(
+							chatMessageVO.getChatRoomId(), 
+							chatMessageVO.getUserId());
+			if(!isUserInRoom) {
+				throw new GlobalException("해당 채팅방에 속해 있지 않은 사용자입니다.");
+			}
+		};
 		
-		if(!isUserInRoom) {
-			throw new GlobalException("해당 채팅방에 속해 있지 않은 사용자입니다.");
-		}
+		
 		
 		if(chatMessageVO.getMessageType() == null) {
 			chatMessageVO.setMessageType(MessageType.MESSAGE);
@@ -68,5 +74,7 @@ public class ChatServiceImpl implements ChatService {
 		}
 		return chatMessageRepository.findMessageByRoomId(chatRoomId);
 	}
+
+	
 
 }

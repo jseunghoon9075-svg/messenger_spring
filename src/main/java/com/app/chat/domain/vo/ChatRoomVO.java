@@ -17,4 +17,5 @@ public class ChatRoomVO {
 	private Long chatRoomId;
 	private String chatRoomName;
 	private LocalDateTime createAt;
+	private String summary;
 }

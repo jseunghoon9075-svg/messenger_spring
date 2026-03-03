@@ -28,3 +28,7 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:/mapper/*.xml
   type-aliases-package: com.app.chat.domain.vo
+
+openai:
+  api-key: ${OPENAI_API_KEY}
+  url: https://api.openai.com/v1/responses

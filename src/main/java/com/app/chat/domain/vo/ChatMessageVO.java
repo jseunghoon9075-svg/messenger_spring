@@ -18,7 +18,7 @@ import lombok.Setter;
 @Builder
 @Schema(description = "메세지 정보")
 public class ChatMessageVO {
-	private Long chatMessageId;
+	private Long messageId;
 	
 	@Schema(description = "메세지 타입", example = "MESSAGE")
 	private MessageType messageType;
@@ -33,4 +33,6 @@ public class ChatMessageVO {
 	
 	@Schema(description = "사용자 ID", example = "멋쟁이쿠키")
 	private String userId;
+	
+	private String isArchived;
 }

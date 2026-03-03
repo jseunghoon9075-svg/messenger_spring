@@ -31,4 +31,11 @@ public class ChatRoomRepositoryImpl implements ChatRoomRepository {
 		return chatRoomMapper.selectChatRoomsByUserId(userId);
 	}
 
+	@Override
+	public void modifySummary(String summary, Long chatRoomId) {
+		chatRoomMapper.updateSummary(summary, chatRoomId);
+	}
+	
+	
+
 }

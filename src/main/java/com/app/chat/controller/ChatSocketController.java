@@ -6,7 +6,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import com.app.chat.domain.vo.ChatMessageVO;
+import com.app.chat.service.AIService;
 import com.app.chat.service.ChatService;
+import com.app.chat.type.MessageType;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +18,8 @@ public class ChatSocketController {
 	
 	private final ChatService chatService;
 	private final SimpMessagingTemplate messagingTemplate;
+	private final AIService aiService;
+	
 	
 	// 클라이언트 -> 서버 메세지 전송
 	@MessageMapping("/chat.send")
@@ -33,6 +37,14 @@ public class ChatSocketController {
 					"/topic/room/" + chatMessageVO.getChatRoomId(),
 					chatMessageVO
 				);
+		
+		if(chatMessageVO.getContent().startsWith("@ai")) {
+			
+			aiService.generateReply(
+					chatMessageVO.getChatRoomId(),
+					chatMessageVO.getContent().replace("@ai", "").trim()
+					);
+		}
 	}
 	
 }

@@ -26,4 +26,10 @@
 		WHERE TCRU.USER_ID = #{userId}
 			AND TCRU.LEFT_AT IS NULL
 	</select>
+	
+	<update id="updateSummary">
+		UPDATE TBL_CHAT_ROOM 
+		SET SUMMARY = #{summary}
+		WHERE CHAT_ROOM_ID = #{chatRoomId}
+	</update>
 </mapper>

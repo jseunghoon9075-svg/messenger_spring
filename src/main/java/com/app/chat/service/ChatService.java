@@ -9,4 +9,5 @@ public interface ChatService {
 	public void sendMessage(ChatMessageVO chatMessageVO);
 	
 	public List<ChatMessageVO> getChatHistory(Long chatRoomId);
+	
 }

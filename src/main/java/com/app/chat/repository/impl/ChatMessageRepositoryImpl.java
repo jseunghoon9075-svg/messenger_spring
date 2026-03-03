@@ -27,4 +27,26 @@ public class ChatMessageRepositoryImpl implements ChatMessageRepository {
 		return chatMessageMapper.selectMessagesByChatRoomId(chatRoomId);
 	}
 
+	@Override
+	public List<ChatMessageVO> findRecentMessages(Long chatRoomId, int limit) {
+		return chatMessageMapper.selectRecentMessages(chatRoomId, limit);
+	}
+
+	@Override
+	public Long findCountByRoomId(Long chatRoomId) {
+		return chatMessageMapper.selectCountByRoomId(chatRoomId);
+	}
+
+	@Override
+	public List<ChatMessageVO> findOldMessages(Long chatRoomId, int limit) {
+		return chatMessageMapper.selectOldMessages(chatRoomId, limit);
+	}
+
+	@Override
+	public void archiveMessages(List<Long> ids) {
+		chatMessageMapper.archiveMessages(ids);
+	}
+	
+	
+
 }

@@ -23,4 +23,43 @@
 		)
 		WHERE ROWNUM = 1
 	</select>
+	
+	<select id="selectRecentMessages" resultType="ChatMessageVO">
+		SELECT MESSAGE_ID, MESSAGE_TYPE, CONTENT, SENT_AT, CHAT_ROOM_ID, USER_ID, IS_ARCHIVED
+		FROM (
+			SELECT *
+			FROM TBL_CHAT_MESSAGE
+			WHERE CHAT_ROOM_ID = #{chatRoomId}
+			AND IS_ARCHIVED = 'N'
+			ORDER BY SENT_AT DESC
+		)
+		WHERE ROWNUM &lt; = #{limit}
+		ORDER BY SENT_AT ASC
+	</select>
+	
+	<select id="selectOldMessages" resultType="ChatMessageVO">
+		SELECT MESSAGE_ID, MESSAGE_TYPE, CONTENT, SENT_AT, CHAT_ROOM_ID, USER_ID
+		FROM (
+			SELECT MESSAGE_ID, MESSAGE_TYPE, CONTENT, SENT_AT, CHAT_ROOM_ID, USER_ID
+			FROM TBL_CHAT_MESSAGE
+			WHERE CHAT_ROOM_ID = #{chatRoomId}
+			ORDER BY SENT_AT ASC
+		)
+		WHERE ROWNUM &lt; = #{limit}
+	</select>
+	
+	<select id="selectCountByRoomId" resultType="Long">
+		SELECT COUNT(MESSAGE_ID)
+		FROM TBL_CHAT_MESSAGE
+		WHERE CHAT_ROOM_ID = #{chatRoomId}
+	</select>
+	
+	<update id="archiveMessages">
+		UPDATE TBL_CHAT_MESSAGE
+		SET IS_ARCHIVED = 'Y'
+		WHERE MESSAGE_ID IN
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
 </mapper>

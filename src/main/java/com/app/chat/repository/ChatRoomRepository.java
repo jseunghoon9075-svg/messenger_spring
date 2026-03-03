@@ -15,4 +15,6 @@ public interface ChatRoomRepository {
 	public ChatRoomVO findRoomByRoomId(Long chatRoomId);
 	
 	public List<ChatRoomVO> findRoomByUserId(String userId);
+	
+	public void modifySummary(String summary, Long chatRoomId);
 }
