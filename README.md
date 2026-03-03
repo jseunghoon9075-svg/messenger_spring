@@ -34,7 +34,7 @@ LLM 호출 시 다음과 같은 이슈가 존재합니다:
 }
 ```
 ## 아키텍처 개요
-
+```text
 User Client (React/Vue)
         ↓ WebSocket / REST
 Spring WebSocket/REST Controller
@@ -49,3 +49,4 @@ Spring WebSocket/REST Controller
 - Service: 트랜잭션/비즈니스 로직
 - Repository: 영속성 처리
 - Controller: 입출력/라우팅
+```
