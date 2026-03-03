@@ -67,7 +67,7 @@ WebSocket 브로드캐스트
 
 ---
 
-## 계층 책임
+### 계층 책임
 
 - Controller: 요청 처리 및 라우팅
 - Service: 비즈니스 로직, 트랜잭션, LLM 호출
@@ -75,7 +75,7 @@ WebSocket 브로드캐스트
 
 ---
 
-## 설계 의도
+### 설계 의도
 
 Stateless LLM 특성을 보완하기 위해 서버에서 상태 관리
 
@@ -88,7 +88,7 @@ Stateless LLM 특성을 보완하기 위해 서버에서 상태 관리
 
 ---
 
-## 기술 스택
+### 기술 스택
 
 - Java 17
 - Spring Boot
@@ -96,3 +96,11 @@ Stateless LLM 특성을 보완하기 위해 서버에서 상태 관리
 - MyBatis
 - OpenAI API
 - Oracle
+
+---
+
+### 사용 툴
+
+- VSCode
+- STS
+- DBeaver
