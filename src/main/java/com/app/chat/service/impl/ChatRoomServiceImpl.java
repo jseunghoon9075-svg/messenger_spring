@@ -2,6 +2,7 @@ package com.app.chat.service.impl;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,11 +31,11 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 	public Long createRoom(ChatRoomVO chatRoomVO, List<String> userIds) {
 		
 		if(chatRoomVO == null) {
-			throw new GlobalException("채팅방 정보가 없습니다.");
+			throw new GlobalException(HttpStatus.BAD_REQUEST,"INVALID_ROOM_ID","채팅방 정보가 없습니다.");
 		}
 		
 		if(userIds == null) {
-			throw new GlobalException("참여자 정보가 없습니다.");
+			throw new GlobalException(HttpStatus.NOT_FOUND,"USER_NOT_FOUND","존재하지 않는 사용자입니다.");
 		}
 //		채팅방 저장
 		chatRoomRepository.save(chatRoomVO);
@@ -44,7 +45,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		for(String userId : userIds) {
 			
 			if(userRepository.findUserById(userId) == null) {
-				throw new GlobalException("존재하지 않는 사용자입니다.");
+				throw new GlobalException(HttpStatus.NOT_FOUND,"USER_NOT_FOUND","존재하지 않는 사용자입니다.");
 			}
 			
 			ChatRoomUserVO roomUser = new ChatRoomUserVO();
@@ -65,7 +66,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		ChatRoomVO room = chatRoomRepository.findRoomByRoomId(chatRoomId);
 		
 		if(room == null) {
-			throw new GlobalException("존재하지 않는 채팅방입니다.");
+			throw new GlobalException(HttpStatus.NOT_FOUND,"ROOM_NOT_FOUND","존재하지 않는 채팅방입니다.");
 		}
 		return room;
 	}
@@ -85,7 +86,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 	@Override
 	public List<ChatRoomVO> findRoomsByUserId(String userId) {
 		if(userId == null || userId.isBlank()) {
-			throw new GlobalException("사용자 정보가 없습니다.");
+			throw new GlobalException(HttpStatus.BAD_REQUEST,"INVALID_USER_ID","사용자 정보가 없습니다.");
 		}
 		return chatRoomRepository.findRoomByUserId(userId);
 	}

@@ -1,9 +1,11 @@
 package com.app.chat.service.impl;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.chat.domain.vo.UserVO;
+import com.app.chat.exception.GlobalException;
 import com.app.chat.repository.UserRepository;
 import com.app.chat.service.UserService;
 
@@ -20,7 +22,7 @@ public class UserServiceImpl implements UserService {
 	public void register(UserVO userVO) {
 		
 		if(userVO == null) {
-			throw new IllegalArgumentException("User 정보가 없습니다.");
+			throw new GlobalException(HttpStatus.BAD_REQUEST,"INVALID_USER_REQUEST","사용자 요청 값이 올바르지 않습니다.");
 		}
 		
 		userRepository.save(userVO);
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
 		UserVO user = userRepository.findUserById(userId);
 		
 		if(user == null) {
-			throw new IllegalArgumentException("해당 사용자가 존재하지 않습니다.");
+			throw new GlobalException(HttpStatus.NOT_FOUND,"USER_NOT_FOUND","사용자를 찾을 수 없습니다.");
 		}
 		return user;
 	}

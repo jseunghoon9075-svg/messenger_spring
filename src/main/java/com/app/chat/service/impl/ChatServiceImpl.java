@@ -2,6 +2,7 @@ package com.app.chat.service.impl;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,19 +31,19 @@ public class ChatServiceImpl implements ChatService {
 	public void sendMessage(ChatMessageVO chatMessageVO) {
 		
 		if(chatMessageVO == null) {
-			throw new GlobalException("메세지 정보가 없습니다.");
+			throw new GlobalException(HttpStatus.BAD_REQUEST,"INVALID_MESSAGE","메세지 정보가 없습니다.");
 		}
 		
 		if(chatMessageVO.getUserId() == null) {
-			throw new GlobalException("사용자 정보가 없습니다.");
+			throw new GlobalException(HttpStatus.BAD_REQUEST,"INVALID_USER_ID","사용자 정보가 없습니다.");
 		}
 		
 		if(chatMessageVO.getChatRoomId() == null) {
-			throw new GlobalException("채팅방 정보가 없습니다.");
+			throw new GlobalException(HttpStatus.BAD_REQUEST,"INVALID_ROOD_ID","채팅방 정보가 없습니다.");
 		}
 		
 		if(chatMessageVO.getContent() == null || chatMessageVO.getContent().trim().isEmpty()) {
-			throw new GlobalException("메세지 내용이 비어 있습니다.");
+			throw new GlobalException(HttpStatus.BAD_REQUEST,"EMPTY_MESSAGE_CONTENT","메세지 내용이 비어 있습니다.");
 		}
 		
 		chatRoomService.findRoomById(chatMessageVO.getChatRoomId());
@@ -53,7 +54,7 @@ public class ChatServiceImpl implements ChatService {
 							chatMessageVO.getChatRoomId(), 
 							chatMessageVO.getUserId());
 			if(!isUserInRoom) {
-				throw new GlobalException("해당 채팅방에 속해 있지 않은 사용자입니다.");
+				throw new GlobalException(HttpStatus.FORBIDDEN,"NOT_ROOM_USER","해당 채팅방에 속해 있지 않은 사용자입니다.");
 			}
 		};
 		
@@ -70,7 +71,7 @@ public class ChatServiceImpl implements ChatService {
 	public List<ChatMessageVO> getChatHistory(Long chatRoomId) {
 		
 		if(chatRoomId == null) {
-			throw new GlobalException("채팅방 ID가 없습니다.");
+			throw new GlobalException(HttpStatus.NOT_FOUND,"ROOM_NOT_FOUND","채팅방 ID가 없습니다.");
 		}
 		return chatMessageRepository.findMessageByRoomId(chatRoomId);
 	}
